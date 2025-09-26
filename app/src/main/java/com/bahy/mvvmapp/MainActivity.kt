@@ -21,11 +21,13 @@ class MainActivity : AppCompatActivity() {
         }
 
         val viewModel = ViewModelProvider(this)[CounterViewModel::class.java]
-        binding.counter.text="%,d".format(viewModel.counter)
+
+        viewModel.newCounter.observe(this){ newValue->
+            binding.counter.text="%,d".format(newValue)
+        }
 
         binding.btn.setOnClickListener{
-            viewModel.counter++
-            binding.counter.text="%,d".format(viewModel.counter)
+            viewModel.increament()
         }
     }
 }
